@@ -4,23 +4,27 @@ import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 
-export default function SearchBar() {
+export default function SearchBar({ setFilterQuery }) {
     return (
-        <FormControl sx={{ width: { xs: '100%', md: '25ch' } }} variant="outlined">
-            <OutlinedInput
-                size="small"
-                id="search"
-                placeholder="Search…"
-                sx={{ flexGrow: 1 }}
-                startAdornment={
-                    <InputAdornment position="start" sx={{ color: 'text.primary' }}>
-                        <SearchRoundedIcon fontSize="small" />
-                    </InputAdornment>
-                }
-                inputProps={{
-                    'aria-label': 'search',
-                }}
-            />
-        </FormControl>
+        <div className='h-10'>
+            <FormControl variant="outlined">
+                <OutlinedInput
+                    size="small"
+                    id="search"
+                    placeholder="Search contact…"
+                    sx={{ flexGrow: 1 }}
+                    startAdornment={
+                        <InputAdornment position="start" sx={{ color: 'text.primary' }}>
+                            <SearchRoundedIcon fontSize="small" />
+                        </InputAdornment>
+                    }
+                    inputProps={{
+                        'aria-label': 'search',
+                    }}
+                    onChange={(event) => setFilterQuery(event.target.value)}
+                />
+            </FormControl>
+        </div>
+
     );
 }
