@@ -3,7 +3,7 @@ from models import Person, Note, Task, CreatePerson
 from typing import List
 from bson import ObjectId
 from database import get_persons_collection, get_notes_collection, get_tasks_collection
-
+from resize_image import resize_image_blob
 router = APIRouter()
 
 
@@ -11,12 +11,17 @@ router = APIRouter()
 async def create_person(person: CreatePerson):
     persons_collection = get_persons_collection()
     person_data = person.model_dump()
+
     person_data["_id"] = str(ObjectId())
+    # TODO: resize image before storing
+
     result = persons_collection.insert_one(person_data)
     created_person = persons_collection.find_one({"_id": result.inserted_id})
 
     if created_person:
         created_person["id"]  = str(created_person["_id"])
+        created_person["resize_img"] = resize_image_blob(created_person["image_blob"])
+
         return Person(**created_person)
 
     raise HTTPException(status_code=500, detail="Failed to create person")
@@ -41,7 +46,7 @@ async def read_persons():
 
     for person in persons:
         person["id"] = str(person["_id"])
-
+        print(f'person: {person}')
     return [Person(**person) for person in persons]
 
 

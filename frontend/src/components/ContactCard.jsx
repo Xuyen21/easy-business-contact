@@ -9,7 +9,8 @@ const ContactCard = ({ contactList }) => {
                 >
                     <img
                         alt="avatar"
-                        className="w-22 h-22 rounded-full mr-4" // Add margin right
+                        className="w-22 h-22 object-cover rounded-full mr-4" // Add margin right
+                        // src={`data:image/jpeg;base64,${contact.image_blob}`}
                         src={contact.image_blob}
                     />
                     <figcaption>
