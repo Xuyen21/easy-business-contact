@@ -6,7 +6,7 @@ import { useState, useContext } from 'react';
 import StatusContext from '../utils/UploadStatusContext.js';
 import { PERSON_API } from '../utils/constants.js';
 
-export default function AddContact() {
+export default function AddContact({ refetchContacts }) {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -50,6 +50,8 @@ export default function AddContact() {
             console.log('Success:', data);
             // Set status to true on success
             updateUploadState(true);
+            // reload the contacts list after adding a new contact
+            await refetchContacts();
         }
         else {
             alert('Error:', data);

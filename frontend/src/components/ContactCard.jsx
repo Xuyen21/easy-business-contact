@@ -1,4 +1,36 @@
-const ContactCard = ({ contactList }) => {
+import Button from '@mui/material/Button';
+import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import { PERSON_API } from '../utils/constants';
+
+const ContactCard = ({ contactList, refetchContacts }) => {
+    const handleDelete = async (contactId, first_name, last_name) => {
+        const fullName = `${first_name} ${last_name}`;
+        console.log(`Deleting contact with ID: ${contactId}`);
+
+        const deleteConfirm = window.confirm(`Are you sure you want to delete ${fullName}?`);
+        if (deleteConfirm) {
+            try {
+                const response = await fetch(`${PERSON_API}/${contactId}`, { // Assuming your backend route is /api/persons/{person_id}
+                    method: 'DELETE',
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                // Refetch contacts after successful deletion
+                await refetchContacts();
+
+                console.log(`Contact with ID: ${contactId} deleted successfully.`);
+            } catch (error) {
+                console.error("Error deleting contact:", error);
+                // Handle error (e.g., show an error message to the user)
+            }
+        }
+    };
+
+
     return (
 
         <div className="flex flex-col">
@@ -33,6 +65,12 @@ const ContactCard = ({ contactList }) => {
                                 </tr>
                             </tbody>
                         </table>
+                        <div className="flex justify-end mt-2">
+                            <Button><VisibilityOutlinedIcon /></Button>
+                            <Button><EditIcon /></Button>
+                            <Button onClick={() => handleDelete(contact.id, contact.first_name, contact.last_name)}><DeleteOutlineIcon /></Button>
+
+                        </div>
                     </figcaption>
                 </figure>
             ))

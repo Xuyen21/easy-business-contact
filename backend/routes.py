@@ -4,6 +4,7 @@ from typing import List
 from bson import ObjectId
 from database import get_persons_collection, get_notes_collection, get_tasks_collection
 from resize_image import resize_image_blob
+from pymongo.results import DeleteResult
 router = APIRouter()
 
 
@@ -25,7 +26,6 @@ async def create_person(person: CreatePerson):
         return Person(**created_person)
 
     raise HTTPException(status_code=500, detail="Failed to create person")
-
 
 @router.get("/persons/{person_id}", response_model=Person)
 async def read_person(person_id: str):
@@ -50,6 +50,21 @@ async def read_persons():
     return [Person(**person) for person in persons]
 
 
+@router.delete("/persons/{person_id}", status_code=204)
+async def delete_person(person_id: str):
+    print(f"Attempting to delete person with ID: {person_id}")
+    persons_collection = get_persons_collection()
+    result = persons_collection.delete_one({"_id": person_id})  # add type hint
+
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Person not found")
+    return {"message": "deleted", "id": person_id}
+    # persons_collection = get_persons_collection()
+    # result: DeleteResult = await persons_collection.delete_one({"_id": ObjectId(person_id)})
+    #
+    # if result.deleted_count == 0:
+    #     raise HTTPException(status_code=404, detail="Person not found")
+    # return {"message": "deleted", "id": person_id}
 @router.post("/notes/", response_model=Note)
 async def create_note(note: Note):
     notes_collection = get_notes_collection()
