@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
 import AddressDropDown from './AddressDropdown';
 import { getBase64 } from '../utils/Base64.js';
+import { useState, useContext } from 'react';
+import StatusContext from '../utils/UploadStatusContext.js';
+import { PERSON_API } from '../utils/constants.js';
 
 export default function AddContact() {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    const { updateUploadState } = useContext(StatusContext);
 
     const [imagePreview, setImagePreview] = useState(null); // Local preview URL
     const [imageFile, setImageFile] = useState(null); // Store the actual file
@@ -25,8 +28,6 @@ export default function AddContact() {
         company: "",
         title: "",
     });
-
-    const PERSON_API = 'http://localhost:8004/persons'
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -47,6 +48,8 @@ export default function AddContact() {
         const data = await response.json();
         if (response.ok) {
             console.log('Success:', data);
+            // Set status to true on success
+            updateUploadState(true);
         }
         else {
             alert('Error:', data);

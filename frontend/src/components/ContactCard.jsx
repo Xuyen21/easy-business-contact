@@ -8,13 +8,13 @@ const ContactCard = ({ contactList }) => {
                     key={index}  // Adjust width as needed
                 >
                     <img
-                        alt="user"
+                        alt="avatar"
                         className="w-22 h-22 rounded-full mr-4" // Add margin right
-                        src={contact.picture.large}
+                        src={contact.image_blob}
                     />
                     <figcaption>
                         <p className="text-gray-700 font-semibold text-xl mb-2">
-                            {contact.name.first} {contact.name.last}
+                            {contact.first_name} {contact.last_name}
                         </p>
                         <table className="table-auto">
                             <tbody>
@@ -24,11 +24,11 @@ const ContactCard = ({ contactList }) => {
                                 </tr>
                                 <tr>
                                     <td><span className="font-medium">phone: </span></td>
-                                    <td>{contact.cell}</td>
+                                    <td>{contact.phone}</td>
                                 </tr>
                                 <tr>
-                                    <td><span className="font-medium">city: </span></td>
-                                    <td>{contact.location.city}</td>
+                                    <td><span className="font-medium">company: </span></td>
+                                    <td>{contact.company}</td>
                                 </tr>
                             </tbody>
                         </table>

@@ -5,7 +5,7 @@ using `npm create vite@latest`
 ### Create your credentials in `.env`
 + Copy `.env.template` to `.env`
 + Replace the placeholder values in `.env` with your actual credentials.
-### Run pymongo app in browser : `python -m uvicorn main:app --reload --port 8004`
-note that before running the container in docker must be up and running
+### Run pymongo app in browser : `python -m uvicorn main:app --reload`
+note that before running the container in docker must be up and running, port 8000 by default
 ### stop any runnung FastAPI server: `taskkill /IM uvicorn.exe /F
 `

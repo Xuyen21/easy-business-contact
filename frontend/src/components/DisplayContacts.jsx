@@ -1,11 +1,11 @@
 import ContactCard from './ContactCard';
 import { useEffect, useState } from 'react';
 import SearchBar from './SearchBar';
-import Button from '@mui/material/Button';
 import AddContact from './AddContact';
+import { PERSON_API } from '../utils/constants';
 
 const DisplayContacts = () => {
-    const url = 'https://randomuser.me/api/';
+    // const url = 'https://randomuser.me/api/';
     const [data, setData] = useState(null);
     const [contactList, setContactList] = useState(null);
     const [filterQuery, setFilterQuery] = useState('');
@@ -16,11 +16,12 @@ const DisplayContacts = () => {
         const fetchData = async () => {
             setIsLoading(true);
             try {
-                const response = await fetch(url + '?results=200');
+                const response = await fetch(PERSON_API);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 const jsonData = await response.json();
+                console.log('current data', jsonData);
                 setData(jsonData);
             } catch (err) {
                 setError(err);
@@ -30,16 +31,18 @@ const DisplayContacts = () => {
         };
 
         fetchData();
-    }, [url]);
+    }, [PERSON_API]);
 
     useEffect(() => {
         if (data) {
             if (!filterQuery) {
-                setContactList(data?.results?.slice(0, 10));
+                // display the first 10 contacts if no filter is applied
+                setContactList(data?.slice(0, 10));
             } else {
+                console.log(`data?.results?`, data);
                 const queryString = filterQuery.toLowerCase();
                 const filteredData = data?.results?.filter((contact) => {
-                    const fullName = `${contact.name.first} ${contact.name.last}`;
+                    const fullName = `${contact.first_name} ${contact.last_name}`;
 
                     // if it's just one letter, return all names that start with it
                     if (queryString.length === 1) {
@@ -50,6 +53,7 @@ const DisplayContacts = () => {
                     }
                 });
                 setContactList(filteredData);
+                console.log('contactList after filtering:', filteredData);
             }
         }
     }, [data, filterQuery]);
@@ -67,19 +71,16 @@ const DisplayContacts = () => {
                 <div className=''>
                     <SearchBar setFilterQuery={setFilterQuery} />
                 </div>
-
                 <div className='h-10'>
                     <AddContact />
-                    {/* <Button variant="outlined" onClick={onClick}
-                        sx={{ color: 'gray', borderColor: '#d1d5db', height: '100%', minWidth: '40px', padding: 0, '&:hover': { backgroundColor: 'gray', color: 'white' } }}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
-                    </Button> */}
                 </div>
             </div>
+
             <div className='bg-gray-100 p-5 rounded '>
-                <section >
+                <section >      
                     {contactList?.length < 1 && <h1>No data matches your search</h1>}
-                    <ContactCard contactList={contactList} />
+                    {/* <ContactCard contactList={contactList} /> */}
+                    {contactList?.length > 0 && <ContactCard contactList={contactList} />}
                 </section>
             </div>
         </div>

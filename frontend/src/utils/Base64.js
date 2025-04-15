@@ -10,9 +10,11 @@ export function getBase64(file) {
 
     reader.onload = () => {
       // Make a fileInfo Object
-      baseURL = reader.result;
-      console.log(baseURL);
-      resolve(baseURL);
+      let base64String = reader.result;
+      // Remove the prefix to get only the base64 data
+      const base64Content = base64String.split(',')[1];
+      console.log(base64Content);
+      resolve(base64Content);
     };
   });
 };
