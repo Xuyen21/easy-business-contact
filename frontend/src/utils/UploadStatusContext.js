@@ -1,4 +1,3 @@
 import { createContext } from 'react';
 
-const StatusContext = createContext();
-export default StatusContext;
+export const StatusContext = createContext();

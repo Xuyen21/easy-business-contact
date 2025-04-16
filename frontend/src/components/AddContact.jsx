@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import AddressDropDown from './AddressDropdown';
 import { getBase64 } from '../utils/Base64.js';
 import { useState, useContext } from 'react';
-import StatusContext from '../utils/UploadStatusContext.js';
+import {StatusContext} from '../utils/UploadStatusContext.js';
 import { PERSON_API } from '../utils/constants.js';
 
 export default function AddContact({ refetchContacts }) {
@@ -35,7 +35,6 @@ export default function AddContact({ refetchContacts }) {
             ...formData,
 
         };
-        console.log("Sending data:", payload);
         // send data to backend
         const response = await fetch(PERSON_API, {
             method: 'POST',
@@ -47,7 +46,7 @@ export default function AddContact({ refetchContacts }) {
         })
         const data = await response.json();
         if (response.ok) {
-            console.log('Success:', data);
+
             // Set status to true on success
             updateUploadState(true);
             // reload the contacts list after adding a new contact
@@ -114,7 +113,7 @@ export default function AddContact({ refetchContacts }) {
                                     <div className="col-span-3">
                                         <label htmlFor="last_name" className="block text-sm/6">Last name<span className='text-red-500'> *</span></label>
                                         <div className="mt-2">
-                                            <input type="text" name="last_name" id="last_name" onChange={handleChange} autoComplete="family-name" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+                                            <input type="text" name="last_name" id="last_name" onChange={handleChange} required autoComplete="family-name" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
                                         </div>
                                     </div>
                                     <div className="sm:col-span-4">
@@ -128,13 +127,13 @@ export default function AddContact({ refetchContacts }) {
                                     <div className="sm:col-span-4">
                                         <label htmlFor="email" className="block text-sm/6">Email address<span className='text-red-500'> *</span></label>
                                         <div className="mt-2">
-                                            <input id="email" name="email" type="email" onChange={handleChange} autoComplete="email" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+                                            <input id="email" name="email" type="email" onChange={handleChange} required autoComplete="email" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
                                         </div>
                                     </div>
                                     <div className="sm:col-span-4">
                                         <label htmlFor="phone" className="block text-sm/6">Phone<span className='text-red-500'> *</span></label>
                                         <div className="mt-2">
-                                            <input id="phone" name="phone" type="phone" onChange={handleChange} autoComplete="phone" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+                                            <input id="phone" name="phone" type="phone" onChange={handleChange} required autoComplete="phone" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
                                         </div>
                                     </div>
                                     <div className="sm:col-span-4">

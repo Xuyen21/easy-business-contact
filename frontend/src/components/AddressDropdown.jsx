@@ -15,7 +15,7 @@ export default function AddressDropDown() {
                     // containerClassName="form-group"
                     // inputClassName=""
                     onChange={(_country) => setCountry(_country)}
-                    onTextChange={(_txt) => console.log(_txt)}
+                    // onTextChange={(_txt) => console.log(_txt)}
                     placeHolder="Select Country"
                 />
             </div>
@@ -26,7 +26,7 @@ export default function AddressDropDown() {
                     // containerClassName="form-group"
                     // inputClassName=""
                     onChange={(_state) => setCurrentState(_state)}
-                    onTextChange={(_txt) => console.log(_txt)}
+                    // onTextChange={(_txt) => console.log(_txt)}
                     defaultValue={currentState}
                     placeHolder="Select State"
                 />

@@ -4,13 +4,25 @@ import SearchBar from './SearchBar';
 import AddContact from './AddContact';
 import { PERSON_API } from '../utils/constants';
 
+import Alert from '@mui/material/Alert';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
+import Modal from '@mui/material/Modal';
+
 const DisplayContacts = () => {
-    // const url = 'https://randomuser.me/api/';
+
     const [data, setData] = useState(null);
     const [contactList, setContactList] = useState(null);
     const [filterQuery, setFilterQuery] = useState('');
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    const [showAlert, setShowAlert] = useState(false);
+    const [deleteMessage, setDeleteMessage] = useState('');
+
+    const [openModal, setOpenModal] = useState(false);
+    const handleOpen = () => setOpenModal(true);
+
 
     const fetchData = async () => {
         setIsLoading(true);
@@ -54,9 +66,20 @@ const DisplayContacts = () => {
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
-    const onClick = () => {
+    if (!data) return <p>No data available</p>;
+    const showDeleteAlert = (personFullName) => {
+        setDeleteMessage(`You deleted ${personFullName}.`);
+        setOpenModal(true);
+        setShowAlert(true);
+        setTimeout(() => {
+            setShowAlert(false);
+        }, 5000); // 3 seconds
+    };
 
-    }
+    const closeAlert = () => {
+        setShowAlert(false);
+        setOpenModal(false);
+    };
 
     return (
         <div>
@@ -65,15 +88,38 @@ const DisplayContacts = () => {
                     <SearchBar setFilterQuery={setFilterQuery} />
                 </div>
                 <div className='h-10'>
-                    <AddContact refetchContacts={fetchData}/>
+                    <AddContact refetchContacts={fetchData} />
                 </div>
             </div>
 
             <div className='bg-gray-100 p-5 rounded '>
+                {showAlert && (
+                    <Modal open={open}
+                        onClose={closeAlert}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description">
+                        <Alert
+                            severity="success"
+                            action={
+                                <IconButton
+                                    aria-label="close"
+                                    color="inherit"
+                                    size="small"
+                                    onClick={closeAlert}
+                                >
+                                    <CloseIcon fontSize="inherit" />
+                                </IconButton>
+                            }
+                        >
+                            {deleteMessage}
+                        </Alert>
+                    </Modal>
+
+                )}
                 <section >
                     {contactList?.length < 1 && <h1>No data matches your search</h1>}
                     {/* <ContactCard contactList={contactList} /> */}
-                    {contactList?.length > 0 && <ContactCard contactList={contactList} refetchContacts={fetchData} />}
+                    {contactList?.length > 0 && <ContactCard contactList={contactList} showDeleteAlert={showDeleteAlert} refetchContacts={fetchData} />}
                 </section>
             </div>
         </div>

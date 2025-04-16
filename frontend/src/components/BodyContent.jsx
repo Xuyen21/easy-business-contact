@@ -1,7 +1,7 @@
 import DisplayContacts from './DisplayContacts';
 import CalendarUI from './Calendar/CalendarUI'
 import { useState } from 'react';
-import StatusContext from '../utils/UploadStatusContext';
+import {StatusContext} from '../utils/UploadStatusContext';
 
 function BodyContent() {
     const [uploadStatus, setUploadingStatus] = useState(false);

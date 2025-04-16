@@ -1,28 +1,29 @@
+import { useState, useEffect, use } from 'react';
 import Button from '@mui/material/Button';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
+
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import { PERSON_API } from '../utils/constants';
 
-const ContactCard = ({ contactList, refetchContacts }) => {
+const ContactCard = ({ contactList, showDeleteAlert, refetchContacts }) => {
+
     const handleDelete = async (contactId, first_name, last_name) => {
         const fullName = `${first_name} ${last_name}`;
-        console.log(`Deleting contact with ID: ${contactId}`);
 
         const deleteConfirm = window.confirm(`Are you sure you want to delete ${fullName}?`);
         if (deleteConfirm) {
             try {
-                const response = await fetch(`${PERSON_API}/${contactId}`, { // Assuming your backend route is /api/persons/{person_id}
+                const response = await fetch(`${PERSON_API}/${contactId}`, {
                     method: 'DELETE',
                 });
 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
+                showDeleteAlert(fullName); // Trigger alert in parent
                 // Refetch contacts after successful deletion
                 await refetchContacts();
-
-                console.log(`Contact with ID: ${contactId} deleted successfully.`);
             } catch (error) {
                 console.error("Error deleting contact:", error);
                 // Handle error (e.g., show an error message to the user)
