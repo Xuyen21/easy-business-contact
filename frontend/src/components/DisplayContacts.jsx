@@ -17,12 +17,8 @@ const DisplayContacts = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const [showAlert, setShowAlert] = useState(false);
+    const [showAlertModal, setShowAlertModal] = useState(false);
     const [deleteMessage, setDeleteMessage] = useState('');
-
-    const [openModal, setOpenModal] = useState(false);
-    const handleOpen = () => setOpenModal(true);
-
 
     const fetchData = async () => {
         setIsLoading(true);
@@ -69,16 +65,16 @@ const DisplayContacts = () => {
     if (!data) return <p>No data available</p>;
     const showDeleteAlert = (personFullName) => {
         setDeleteMessage(`You deleted ${personFullName}.`);
-        setOpenModal(true);
-        setShowAlert(true);
+        // setOpenModal(true);
+        setShowAlertModal(true);
         setTimeout(() => {
-            setShowAlert(false);
+            setShowAlertModal(false);
         }, 5000); // 3 seconds
     };
 
     const closeAlert = () => {
-        setShowAlert(false);
-        setOpenModal(false);
+        setShowAlertModal(false);
+        // setOpenModal(false);
     };
 
     return (
@@ -93,7 +89,7 @@ const DisplayContacts = () => {
             </div>
 
             <div className='bg-gray-100 p-5 rounded '>
-                {showAlert && (
+                {showAlertModal && (
                     <Modal open={open}
                         onClose={closeAlert}
                         aria-labelledby="modal-modal-title"

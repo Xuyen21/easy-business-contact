@@ -3,8 +3,9 @@ import Button from '@mui/material/Button';
 import AddressDropDown from './AddressDropdown';
 import { getBase64 } from '../utils/Base64.js';
 import { useState, useContext } from 'react';
-import {StatusContext} from '../utils/UploadStatusContext.js';
+import { StatusContext } from '../utils/UploadStatusContext.js';
 import { PERSON_API } from '../utils/constants.js';
+import Tooltip from '@mui/material/Tooltip';
 
 export default function AddContact({ refetchContacts }) {
     const [open, setOpen] = useState(false);
@@ -82,11 +83,14 @@ export default function AddContact({ refetchContacts }) {
 
     return (
         <div>
+
             <div className='h-10'>
-                <Button variant="outlined" onClick={handleOpen}
-                    sx={{ color: 'gray', borderColor: '#d1d5db', height: '100%', minWidth: '40px', padding: 0, '&:hover': { backgroundColor: 'gray', color: 'white' } }}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
-                </Button>
+                <Tooltip title='Add new contact'>
+                    <Button variant="outlined" onClick={handleOpen}
+                        sx={{ color: 'gray', borderColor: '#d1d5db', height: '100%', minWidth: '40px', padding: 0, '&:hover': { backgroundColor: 'gray', color: 'white' } }}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+                    </Button>
+                </Tooltip>
             </div>
 
             <Modal

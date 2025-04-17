@@ -1,12 +1,17 @@
-import { useState, useEffect, use } from 'react';
+import { useState } from 'react';
+import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
+import Tooltip from '@mui/material/Tooltip';
 
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import Details from './details_view/Details';
 import { PERSON_API } from '../utils/constants';
 
 const ContactCard = ({ contactList, showDeleteAlert, refetchContacts }) => {
+    const [openDetailsModal, setOpenDetailsModal] = useState(false);
+    const [selectedContact, setSelectedContact] = useState(null); // State to hold the contact to display in the modal
 
     const handleDelete = async (contactId, first_name, last_name) => {
         const fullName = `${first_name} ${last_name}`;
@@ -26,11 +31,20 @@ const ContactCard = ({ contactList, showDeleteAlert, refetchContacts }) => {
                 await refetchContacts();
             } catch (error) {
                 console.error("Error deleting contact:", error);
-                // Handle error (e.g., show an error message to the user)
             }
         }
     };
 
+    const handleCloseDetailsModal = () => {
+        setOpenDetailsModal(false);
+        setSelectedContact(null); // Clear the selected contact when the modal is closed
+    };
+
+    const handleOpenDetailsModal = (contact) => {
+        console.log("Selected contact:", contact); // Log the selected contact
+        setSelectedContact(contact); // Set the selected contact when the button is clicked
+        setOpenDetailsModal(true);
+    };
 
     return (
 
@@ -42,8 +56,7 @@ const ContactCard = ({ contactList, showDeleteAlert, refetchContacts }) => {
                 >
                     <img
                         alt="avatar"
-                        className="w-22 h-22 object-cover rounded-full mr-4" // Add margin right
-                        // src={`data:image/jpeg;base64,${contact.image_blob}`}
+                        className="w-22 h-22 object-cover rounded-full mr-4" // Add margin right                     
                         src={contact.image_blob}
                     />
                     <figcaption>
@@ -67,15 +80,28 @@ const ContactCard = ({ contactList, showDeleteAlert, refetchContacts }) => {
                             </tbody>
                         </table>
                         <div className="flex justify-end mt-2">
-                            <Button><VisibilityOutlinedIcon /></Button>
-                            <Button><EditIcon /></Button>
-                            <Button onClick={() => handleDelete(contact.id, contact.first_name, contact.last_name)}><DeleteOutlineIcon /></Button>
+                            <Tooltip title="View Details" arrow>
+                                <Button onClick={() => handleOpenDetailsModal(contact)}><VisibilityOutlinedIcon /></Button>
+                            </Tooltip>
 
+                            <Tooltip title="Quick Edit" arrow>
+                                <Button><EditIcon /></Button>
+                            </Tooltip>
+
+                            <Tooltip title="Delete contact" arrow>
+                                <Button onClick={() => handleDelete(contact.id, contact.first_name, contact.last_name)}><DeleteOutlineIcon /></Button>
+                            </Tooltip>
                         </div>
                     </figcaption>
                 </figure>
             ))
             }
+            <Modal open={openDetailsModal}
+                onClose={handleCloseDetailsModal}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description">
+                <Details contact={selectedContact}></Details>
+            </Modal>
         </div >
     );
 };

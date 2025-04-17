@@ -46,7 +46,6 @@ async def read_persons():
 
     for person in persons:
         person["id"] = str(person["_id"])
-        print(f'person: {person}')
     return [Person(**person) for person in persons]
 
 
