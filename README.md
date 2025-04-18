@@ -24,7 +24,7 @@ Currently, the application allows users to:
 1.  **Clone the project:**
 
     ```bash
-    git clone [https://github.com/Xuyen21/easy-business-contact.git](https://github.com/Xuyen21/easy-business-contact.git)
+    git clone git@github.com:Xuyen21/easy-business-contact.git
     ```
 
 2.  **Set up the Frontend:**
@@ -98,8 +98,7 @@ Currently, the application allows users to:
 ## REST API Documentation
 
 Once the Uvicorn server is running, you can find the complete API documentation at:
-
-`http://127.0.0.1:8000/docs`
+[http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
 ## Next Steps
 
