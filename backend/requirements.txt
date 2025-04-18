@@ -1,1 +1,6 @@
 pymongo
+uvicorn
+fastapi
+dotenv
+email-validator
+Pillow
