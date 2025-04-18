@@ -8,24 +8,30 @@ from pydantic import (
     HttpUrl,
     field_serializer,
     field_validator,
-    validator,
 )
-from validators import validate_url
+
+from backend.common.validators import validate_url
 
 
-class Note(BaseModel):
-    id: str
+class CreateNote(BaseModel):
     person_id: str
-    date: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     content: str
 
 
-class Task(BaseModel):
+class Note(CreateNote):
     id: str
+    date: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+class CreateTask(BaseModel):
     person_id: str
-    creation_date: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     description: str
     due_date: Optional[datetime] = None
+
+
+class Task(CreateTask):
+    id: str
+    creation_date: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 class CreatePerson(BaseModel):

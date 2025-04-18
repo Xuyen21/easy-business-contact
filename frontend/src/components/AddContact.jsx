@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import AddressDropDown from './AddressDropdown';
 import { getBase64 } from '../utils/Base64.js';
 import { useState, useContext } from 'react';
-import { StatusContext } from '../utils/UploadStatusContext.js';
+import { StatusContext } from '../utils/contexts.js';
 import { PERSON_API } from '../utils/constants.js';
 import Tooltip from '@mui/material/Tooltip';
 
@@ -15,8 +15,6 @@ export default function AddContact({ refetchContacts }) {
     const { updateUploadState } = useContext(StatusContext);
 
     const [imagePreview, setImagePreview] = useState(null); // Local preview URL
-    const [imageFile, setImageFile] = useState(null); // Store the actual file
-
 
     const [formData, setFormData] = useState({
         first_name: "",
@@ -47,7 +45,6 @@ export default function AddContact({ refetchContacts }) {
         })
         const data = await response.json();
         if (response.ok) {
-
             // Set status to true on success
             updateUploadState(true);
             // reload the contacts list after adding a new contact

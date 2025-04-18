@@ -8,6 +8,7 @@ import Alert from '@mui/material/Alert';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import Modal from '@mui/material/Modal';
+import { RefreshContext } from '../utils/contexts.js';
 
 const DisplayContacts = () => {
 
@@ -45,8 +46,8 @@ const DisplayContacts = () => {
     useEffect(() => {
         if (data) {
             if (!filterQuery) {
-                // display the first 10 contacts if no filter is applied
-                setContactList(data?.slice(0, 10));
+                // display the first 10 contacts if no filter is applied data?.slice(0, 10)
+                setContactList(data);
             } else {
                 const queryString = filterQuery.toLowerCase();
                 const filteredData = data?.filter((contact) => {
@@ -69,7 +70,7 @@ const DisplayContacts = () => {
         setShowAlertModal(true);
         setTimeout(() => {
             setShowAlertModal(false);
-        }, 5000); // 3 seconds
+        }, 5000); // 5 seconds
     };
 
     const closeAlert = () => {
@@ -78,7 +79,8 @@ const DisplayContacts = () => {
     };
 
     return (
-        <div>
+
+        <RefreshContext.Provider value={{ fetchData }}>
             <div className='flex flex-row gap-2 justify-center items-center mb-5'>
                 <div className=''>
                     <SearchBar setFilterQuery={setFilterQuery} />
@@ -118,7 +120,7 @@ const DisplayContacts = () => {
                     {contactList?.length > 0 && <ContactCard contactList={contactList} showDeleteAlert={showDeleteAlert} refetchContacts={fetchData} />}
                 </section>
             </div>
-        </div>
+        </RefreshContext.Provider>
 
     );
 };

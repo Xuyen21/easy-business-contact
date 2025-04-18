@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import Tooltip from '@mui/material/Tooltip';
 
-import EditIcon from '@material-ui/icons/Edit';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import Details from './details_view/Details';
 import { PERSON_API } from '../utils/constants';
@@ -19,7 +18,7 @@ const ContactCard = ({ contactList, showDeleteAlert, refetchContacts }) => {
         const deleteConfirm = window.confirm(`Are you sure you want to delete ${fullName}?`);
         if (deleteConfirm) {
             try {
-                const response = await fetch(`${PERSON_API}/${contactId}`, {
+                const response = await fetch(`${PERSON_API}${contactId}`, {
                     method: 'DELETE',
                 });
 
@@ -54,11 +53,16 @@ const ContactCard = ({ contactList, showDeleteAlert, refetchContacts }) => {
                     className="rounded-lg shadow-md m-5 pb-3 inline-flex justify-center"
                     key={index}  // Adjust width as needed
                 >
-                    <img
-                        alt="avatar"
-                        className="w-22 h-22 object-cover rounded-full mr-4" // Add margin right                     
-                        src={contact.image_blob}
-                    />
+                    {contact.image_blob ? (
+                        <img
+                            src={contact.image_blob}
+                            alt={`${contact.first_name} ${contact.last_name}`}
+                            className="w-24 h-24 object-cover rounded-full mr-4" />
+                    ) : (
+                        <div className="w-24 h-24 rounded-full mr-4 bg-blue-100 text-white flex items-center justify-center text-3xl font-semibold">
+                            {contact.first_name.charAt(0).toUpperCase()}{contact.last_name.charAt(0).toUpperCase()}
+                        </div>
+                    )}
                     <figcaption>
                         <p className="text-gray-700 font-semibold text-xl mb-2">
                             {contact.first_name} {contact.last_name}
@@ -82,10 +86,6 @@ const ContactCard = ({ contactList, showDeleteAlert, refetchContacts }) => {
                         <div className="flex justify-end mt-2">
                             <Tooltip title="View Details" arrow>
                                 <Button onClick={() => handleOpenDetailsModal(contact)}><VisibilityOutlinedIcon /></Button>
-                            </Tooltip>
-
-                            <Tooltip title="Quick Edit" arrow>
-                                <Button><EditIcon /></Button>
                             </Tooltip>
 
                             <Tooltip title="Delete contact" arrow>

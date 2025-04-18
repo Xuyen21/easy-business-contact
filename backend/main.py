@@ -1,9 +1,10 @@
 from fastapi import FastAPI
-from dotenv import dotenv_values
-from pymongo import MongoClient
-from contextlib import asynccontextmanager
-from routes import router
 from fastapi.middleware.cors import CORSMiddleware
+
+from backend.routers.note_router import note_router
+from backend.routers.person_router import person_router
+from backend.routers.task_router import task_router
+
 app = FastAPI()
 
 # allow frontend access
@@ -18,4 +19,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-app.include_router(router)
+app.include_router(person_router.router)
+app.include_router(note_router.router)
+app.include_router(task_router.router)
