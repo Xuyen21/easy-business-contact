@@ -29,11 +29,13 @@ Currently, the application allows users to:
 
 2.  **Set up the Frontend:**
 
-    To install the frontend, please use node version 22
+    To install the frontend, please use node version 22.9.0
+
+    On some machines there were problems with the npm packages, use the `npm install --force` in such case.
 
     - Navigate to the frontend directory:
       ```bash
-      cd contact-management-nosql/frontend
+      cd frontend
       ```
     - Install dependencies:
       ```bash
@@ -64,7 +66,7 @@ Currently, the application allows users to:
 
     - Navigate to the backend directory:
       ```Powershell
-      cd contact-management-nosql/backend
+      cd backend
       ```
     - Enable virtual environment:
       ```Powershell
@@ -77,6 +79,7 @@ Currently, the application allows users to:
       ```
     - Run the backend server using Uvicorn from project root:
       ```Powershell
+      cd .. # make sure to be in the project root folder
       python -m uvicorn backend.main:app --reload
       ```
       The backend server will be running at `http://127.0.0.1:8000`.

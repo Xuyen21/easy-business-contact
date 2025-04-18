@@ -3,8 +3,8 @@ from pymongo import MongoClient
 
 # these following 3 variables can be stored in .env file
 config = dotenv_values(".env")
-mongo_user = "xuyen1"
-mongo_password = "hV1m1SWQUuCWC.RxQwH4sSH6I1"
+mongo_user = config.get("mongodb_user")
+mongo_password = config.get("mongodb_password")
 uri = f"mongodb://{mongo_user}:{mongo_password}@localhost:27017/"
 
 client = MongoClient(uri)
