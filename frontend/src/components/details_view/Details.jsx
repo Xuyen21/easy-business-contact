@@ -1,14 +1,7 @@
 import { useState } from "react";
 import DetailsContent from "./DetailsContent";
+import Notes from './Notes.jsx';
 
-
-function UpdatesContent() {
-    return <div className="bg-gray-100 rounded-lg shadow-md p-6 h-full w-full flex items-center justify-center"><h3>Updates</h3><p>Content for Updates goes here.</p></div>;
-}
-
-function NotesContent() {
-    return <div className="bg-gray-100 rounded-lg shadow-md p-6 h-full w-full flex items-center justify-center"><h3>Notes</h3><p>Content for Notes goes here.</p></div>;
-}
 
 function SchedulesContent() {
     return <div className="bg-gray-100 rounded-lg shadow-md p-6 h-full w-full flex items-center justify-center"><h3>Schedules</h3><p>Content for Schedules goes here.</p></div>;
@@ -51,15 +44,7 @@ export default function Details({ contact }) {
                 >
                     Details
                 </button>
-                <button
-                    className={`py-2 px-4 text-blue-500 focus:outline-none text-center ${activeTab === 'Updates'
-                        ? 'bg-gray-200 border-b-2 border-blue-500 font-semibold text-blue-700'
-                        : 'hover:bg-gray-100'
-                        }`}
-                    onClick={() => handleTabClick('Updates')}
-                >
-                    Updates
-                </button>
+
                 <button
                     className={`py-2 px-4 text-blue-500 focus:outline-none text-center ${activeTab === 'Notes'
                         ? 'bg-gray-200 border-b-2 border-blue-500 font-semibold text-blue-700'
@@ -83,8 +68,7 @@ export default function Details({ contact }) {
             {/* Content */}
             <div className="flex-grow overflow-y-auto border border-gray-200"> {/* Make the content area take up remaining height */}
                 {activeTab === 'Details' && <DetailsContent contact={contact} />}
-                {activeTab === 'Updates' && <UpdatesContent />}
-                {activeTab === 'Notes' && <NotesContent />}
+                {activeTab === 'Notes' && <Notes personId={contact.id} />}
                 {activeTab === 'Schedules' && <SchedulesContent />}
             </div>
         </div>

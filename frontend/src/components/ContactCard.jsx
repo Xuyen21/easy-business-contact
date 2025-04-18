@@ -40,7 +40,7 @@ const ContactCard = ({ contactList, showDeleteAlert, refetchContacts }) => {
     };
 
     const handleOpenDetailsModal = (contact) => {
-        console.log("Selected contact:", contact); // Log the selected contact
+
         setSelectedContact(contact); // Set the selected contact when the button is clicked
         setOpenDetailsModal(true);
     };

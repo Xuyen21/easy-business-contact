@@ -2,6 +2,8 @@ import DisplayContacts from './DisplayContacts';
 import CalendarUI from './Calendar/CalendarUI'
 import { useState } from 'react';
 import { StatusContext } from '../utils/contexts.js';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function BodyContent() {
     const [uploadStatus, setUploadingStatus] = useState(false);
@@ -23,11 +25,8 @@ function BodyContent() {
                 </div>
 
                 {/* Calendar Section */}
-                <div className='grid grid-rows-[20%_80%] h-full overflow-auto'>
-
-                    <div className='row-span-1 text-gray-600 border mb-5 rounded'>
-                        {uploadStatus ? <p>Display newly added contact here</p> : <p>Upload failed</p>}
-                    </div>
+                <div className='grid grid-rows-[5%_80%] h-full overflow-auto'>                
+                    <ToastContainer />                    
                     <div className='row-span-2 pb-10'>
                         <CalendarUI />
                     </div>

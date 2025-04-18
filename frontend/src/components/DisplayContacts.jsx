@@ -70,12 +70,11 @@ const DisplayContacts = () => {
         setShowAlertModal(true);
         setTimeout(() => {
             setShowAlertModal(false);
-        }, 5000); // 5 seconds
+        }, 5000);
     };
 
     const closeAlert = () => {
         setShowAlertModal(false);
-        // setOpenModal(false);
     };
 
     return (
@@ -112,11 +111,10 @@ const DisplayContacts = () => {
                             {deleteMessage}
                         </Alert>
                     </Modal>
-
                 )}
                 <section >
                     {contactList?.length < 1 && <h1>No data matches your search</h1>}
-                    {/* <ContactCard contactList={contactList} /> */}
+
                     {contactList?.length > 0 && <ContactCard contactList={contactList} showDeleteAlert={showDeleteAlert} refetchContacts={fetchData} />}
                 </section>
             </div>
