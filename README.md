@@ -92,7 +92,8 @@ Currently, the application allows users to:
       $Env:mongo_user = "your-mongo-user-from-env-file"
       $Env:mongo_password = "your-mongo-password-from-env-file"
       $uri = "mongodb://$($Env:mongo_user):$($Env:mongo_password)@localhost:27017/"
-      docker-compose exec -i mongodb /usr/bin/mongodump --uri "$uri" --gzip --archive > ./mongodb.dump.gz
+      docker-compose exec -i mongodb /usr/bin/mongodump --uri "$uri" --gzip --archive=/data/mongo.dump.gz
+      docker-compose cp mongodb:/data/mongo.dump.gz ./mongo.dump.gz 
       ```
 
     - You can restore the sample data with the following command:
@@ -101,8 +102,8 @@ Currently, the application allows users to:
       $Env:mongo_user = "your-mongo-user-from-env-file"
       $Env:mongo_password = "your-mongo-password-from-env-file"
       $uri = "mongodb://$($Env:mongo_user):$($Env:mongo_password)@localhost:27017/"
-      docker-compose cp ./mongodb.dump.gz mongodb:/data/mongodb.dump.gz
-      docker-compose exec -i mongodb /usr/bin/mongorestore --uri "$uri" --gzip --archive /data/mongodb.dump.gz
+      docker-compose cp ./mongo.dump.gz mongodb:/data/mongo.dump.gz
+      docker-compose exec -i mongodb /usr/bin/mongorestore --uri "$uri" --gzip --archive=/data/mongo.dump.gz
       ```
 
 ## REST API Documentation
