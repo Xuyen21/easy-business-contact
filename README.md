@@ -24,14 +24,12 @@ Currently, the application allows users to:
 1.  **Clone the project:**
 
     ```bash
-    git clone git@github.com:Xuyen21/easy-business-contact.git
+    git clone https://github.com/Xuyen21/easy-business-contact.git
     ```
 
 2.  **Set up the Frontend:**
 
-    To install the frontend, please use node version 22.9.0
-
-    On some machines there were problems with the npm packages, use the `npm install --force` in such case.
+    To install the frontend, please use Node with a recent version. The author uses version 22.9.0.
 
     - Navigate to the frontend directory:
       ```bash
@@ -93,7 +91,7 @@ Currently, the application allows users to:
       $Env:mongo_password = "your-mongo-password-from-env-file"
       $uri = "mongodb://$($Env:mongo_user):$($Env:mongo_password)@localhost:27017/"
       docker-compose exec -i mongodb /usr/bin/mongodump --uri "$uri" --gzip --archive=/data/mongo.dump.gz
-      docker-compose cp mongodb:/data/mongo.dump.gz ./mongo.dump.gz 
+      docker-compose cp mongodb:/data/mongo.dump.gz ./mongo.dump.gz
       ```
 
     - You can restore the sample data with the following command:
