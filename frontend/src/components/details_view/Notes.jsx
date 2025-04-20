@@ -52,12 +52,6 @@ export default function Notes({ personId }) {
     setLoading(true);
     setError(null);
 
-    if (!newNoteContent.trim()) {
-      alert("No note was added");
-      setLoading(false);
-      return;
-    }
-
     try {
       const response = await fetch(NOTE_API, {
         method: "POST",

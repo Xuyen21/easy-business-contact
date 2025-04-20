@@ -110,7 +110,7 @@ Currently, the application allows users to:
 
 ## REST API Endpoints Documentation
 
-This document provides a brief overview of the available API endpoints. For complete details on each endpoint, including request parameters, request body schemas, and response body examples, please visit the interactive API documentation at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) \*(Uvicorn service must be up and running). With the database connected and backend endpoints established, FastAPI automatically generated this API documentation, offering a user-friendly interface for exploring and testing its functionalities.
+This document provides a brief overview of the available API endpoints. For complete details on each endpoint, including request parameters, request body schemas, and response body examples, please visit the interactive API documentation at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) \*(Uvicorn server must be up and running). With the database connected and backend endpoints established, FastAPI automatically generated this API documentation, offering a user-friendly interface for exploring and testing its functionalities.
 
 ### Persons
 
@@ -140,6 +140,6 @@ This document provides a brief overview of the available API endpoints. For comp
 
 The API endpoints for managing tasks are already defined and validated in the backend. The next step is to implement the user interface in the frontend to allow users to:
 
-- **Create Tasks:** Provide UI elements for inputting task details (description, due date) and triggering the `POST /tasks/` endpoint.
+- **Create Tasks:** Provide UI elements for inputting task details (description, due date) and triggering the `POST /tasks/` endpoint. After creating, this schedule should be displayed in the calendar. (The calendar UI is already emplemented)
 - **Delete Tasks:** Implement functionality (e.g., a "Delete" button) that calls the `DELETE /tasks/{task_id}` endpoint for a specific task.
 - **Edit (Schedule) Tasks:** Create UI components to modify existing task details (description, due date) and interact with the `PUT /tasks/{task_id}` endpoint.
