@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import SearchBar from './SearchBar';
 import AddContact from './AddContact';
 import { PERSON_API } from '../utils/constants';
-
 import Alert from '@mui/material/Alert';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
@@ -14,10 +13,9 @@ const DisplayContacts = () => {
 
     const [data, setData] = useState(null);
     const [contactList, setContactList] = useState(null);
-    const [filterQuery, setFilterQuery] = useState('');
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
-
+    const [searchValue, setSearchValue] = useState('');
     const [showAlertModal, setShowAlertModal] = useState(false);
     const [deleteMessage, setDeleteMessage] = useState('');
 
@@ -30,7 +28,7 @@ const DisplayContacts = () => {
             }
             const jsonData = await response.json();
             setData(jsonData);
-            setContactList(jsonData); // Update contactList here
+            setContactList(jsonData);
         } catch (err) {
             setError(err);
         } finally {
@@ -42,35 +40,16 @@ const DisplayContacts = () => {
         fetchData();
     }, [PERSON_API]);
 
-
-    useEffect(() => {
-        if (data) {
-            if (!filterQuery) {
-                // display the first 10 contacts if no filter is applied data?.slice(0, 10)
-                setContactList(data);
-            } else {
-                const queryString = filterQuery.toLowerCase();
-                const filteredData = data?.filter((contact) => {
-                    const fullName = `${contact.first_name} ${contact.last_name}`;
-                    return fullName.toLowerCase().includes(queryString);
-                });
-                setContactList(filteredData);
-                console.log('contactList after filtering:', filteredData);
-            }
-        }
-    }, [data, filterQuery]);
-
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
-
     if (!data) return <p>No data available</p>;
+
     const showDeleteAlert = (personFullName) => {
         setDeleteMessage(`You deleted ${personFullName}.`);
-        // setOpenModal(true);
         setShowAlertModal(true);
         setTimeout(() => {
             setShowAlertModal(false);
-        }, 5000);
+        }, 3000);
     };
 
     const closeAlert = () => {
@@ -82,7 +61,7 @@ const DisplayContacts = () => {
         <RefreshContext.Provider value={{ fetchData }}>
             <div className='flex flex-row gap-2 justify-center items-center mb-5'>
                 <div className=''>
-                    <SearchBar setFilterQuery={setFilterQuery} />
+                    <SearchBar setContactList={setContactList} setIsLoading={setIsLoading} setError={setError} setSearchValue={setSearchValue} searchValue={searchValue} />
                 </div>
                 <div className='h-10'>
                     <AddContact refetchContacts={fetchData} />

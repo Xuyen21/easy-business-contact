@@ -3,7 +3,6 @@ import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import Tooltip from "@mui/material/Tooltip";
-
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import Details from "./details_view/Details";
 import { PERSON_API } from "../utils/constants";
@@ -38,11 +37,11 @@ const ContactCard = ({ contactList, showDeleteAlert, refetchContacts }) => {
 
   const handleCloseDetailsModal = () => {
     setOpenDetailsModal(false);
-    setSelectedContact(null); // Clear the selected contact when the modal is closed
+    setSelectedContact(null);
   };
 
   const handleOpenDetailsModal = (contact) => {
-    setSelectedContact(contact); // Set the selected contact when the button is clicked
+    setSelectedContact(contact);
     setOpenDetailsModal(true);
   };
 
@@ -51,7 +50,7 @@ const ContactCard = ({ contactList, showDeleteAlert, refetchContacts }) => {
       {contactList?.map((contact, index) => (
         <figure
           className="rounded-lg shadow-md m-5 pb-3 inline-flex justify-center"
-          key={index} // Adjust width as needed
+          key={index}
         >
           {contact.image_blob ? (
             <img

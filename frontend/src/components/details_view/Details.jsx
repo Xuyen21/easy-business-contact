@@ -4,7 +4,8 @@ import Notes from './Notes.jsx';
 
 
 function SchedulesContent() {
-    return <div className="bg-gray-100 rounded-lg shadow-md p-6 h-full w-full flex items-center justify-center"><h3>Schedules</h3><p>Content for Schedules goes here.</p></div>;
+    return <div className="bg-gray-100 rounded-lg shadow-md p-6 h-full w-full flex items-center justify-center">
+        <p>This will be implemented in next step</p></div>;
 }
 
 export default function Details({ contact }) {

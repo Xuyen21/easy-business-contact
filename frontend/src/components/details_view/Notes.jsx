@@ -124,7 +124,7 @@ export default function Notes({ personId }) {
 
     try {
       const response = await fetch(`${NOTE_API}${noteId}`, {
-        method: "PUT", // Or PATCH, depending on your API
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
