@@ -108,17 +108,38 @@ Currently, the application allows users to:
       docker-compose exec -i mongodb /usr/bin/mongorestore --uri "$uri" --gzip --archive=/data/mongo.dump.gz
       ```
 
-## REST API Documentation
+## REST API Endpoints Documentation
 
-Once the Uvicorn server is running, you can find the complete API documentation at:
-[http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+This document provides a brief overview of the available API endpoints. For complete details on each endpoint, including request parameters, request body schemas, and response body examples, please visit the interactive API documentation at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) \*(Uvicorn service must be up and running). With the database connected and backend endpoints established, FastAPI automatically generated this API documentation, offering a user-friendly interface for exploring and testing its functionalities.
 
-## Next Steps
+### Persons
 
-The backend currently provides full CRUD (Create, Read, Update, Delete) API endpoints for the following entities, with data validation:
+- **`GET /persons/`**: Retrieves a list of all persons.
+- **`POST /persons/`**: Creates a new person.
+- **`GET /persons/{person_id}`**: Retrieves a specific person by their ID.
+- **`PATCH /persons/{person_id}`**: Updates partly an existing person's information like name, email,...
+- **`DELETE /persons/{person_id}`**: Deletes a specific person by their ID.
 
-- **Person:** ID, Name, Email Address, LinkedIn Contact, Phone Number, Company, Role
-- **Notes:** ID, Date, Content
-- **Task:** ID, Date, Description, Due Date
+### Notes
 
-The next development phase will focus on implementing the frontend functionalities to enable user interaction with the Notes and Task entities. Additionally, a calendar feature will be implemented to display scheduled meetings and maybe contact birthdays.
+- **`POST /notes/`**: Creates a new note for a specific person.
+- **`GET /notes/detail/{note_id}`**: Retrieves a specific note by its ID.
+- **`GET /notes/{person_id}`**: Retrieves all notes associated with a specific person ID.
+- **`PUT /notes/{note_id}`**: Updates an existing note.
+- **`DELETE /notes/{note_id}`**: Deletes a specific note by its ID.
+
+### Tasks
+
+- **`POST /tasks/`**: Creates a new task for a specific person.
+- **`GET /tasks/detail/{task_id}`**: Retrieves a specific task by its ID.
+- **`GET /tasks/{person_id}`**: Retrieves all tasks associated with a specific person ID.
+- **`PUT /tasks/{task_id}`**: Updates a specific task by its ID.
+- **`DELETE /tasks/{task_id}`**: Deletes a specific task by its ID.
+
+**Frontend Implementation Status for Tasks:**
+
+The API endpoints for managing tasks are already defined and validated in the backend. The next step is to implement the user interface in the frontend to allow users to:
+
+- **Create Tasks:** Provide UI elements for inputting task details (description, due date) and triggering the `POST /tasks/` endpoint.
+- **Delete Tasks:** Implement functionality (e.g., a "Delete" button) that calls the `DELETE /tasks/{task_id}` endpoint for a specific task.
+- **Edit (Schedule) Tasks:** Create UI components to modify existing task details (description, due date) and interact with the `PUT /tasks/{task_id}` endpoint.
