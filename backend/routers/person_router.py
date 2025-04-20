@@ -17,11 +17,11 @@ class PersonRouter:
         self.person_service = service
 
         # Define routes
-        self.router.post("/persons/", response_model=Person)(self.create_person)
-        self.router.get("/persons/{person_id}", response_model=Person)(self.read_person)
-        self.router.get("/persons/", response_model=List[Person])(self.read_persons)
-        self.router.patch("/persons/{person_id}", response_model=Person)(self.update_person)
-        self.router.delete("/persons/{person_id}", status_code=204)(self.delete_person)
+        self.router.post("/persons/", response_model=Person, tags=["persons"], summary="Creates a new person.")(self.create_person)
+        self.router.get("/persons/{person_id}", response_model=Person, tags=["persons"], summary="Retrieves a specific person by their ID.")(self.read_person)
+        self.router.get("/persons/", response_model=List[Person], tags=["persons"], summary="Retrieves a list of all persons.")(self.read_persons)
+        self.router.patch("/persons/{person_id}", response_model=Person, tags=["persons"], summary="Updates partly an existing person's information like name, email and more.")(self.update_person)
+        self.router.delete("/persons/{person_id}", status_code=204, tags=["persons"], summary="Deletes a specific person by their ID.")(self.delete_person)
 
     async def create_person(self, person: CreatePerson):
         return await service_call_handler(
@@ -34,8 +34,8 @@ class PersonRouter:
             raise HTTPException(status_code=404, detail="Person not found")
         return found_person
 
-    async def read_persons(self):
-        return await self.person_service.read_all()
+    async def read_persons(self, person_search: str = None):
+        return await self.person_service.read_all(person_search)
 
     async def update_person(self, person_id: str, person_update: Dict[str, Any]):
         return await service_call_handler(

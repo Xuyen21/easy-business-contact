@@ -1,3 +1,5 @@
+from re import search
+
 from . import update_entity, create_entity_from_data
 from ..common.resize_image import resize_image_blob
 from ..persistence.database import get_persons_collection
@@ -20,8 +22,15 @@ class PersonService:
             return Person(**person)
         return None
 
-    async def read_all(self):
-        persons = list(self.persons_collection.find())
+    async def read_all(self, person_search: str = None):
+        search_filter = {}
+        if person_search:
+            search_filter["$or"] = [
+                {"first_name": {"$regex": person_search, "$options": "i"}},
+                {"last_name": {"$regex": person_search, "$options": "i"}},
+                {"email": {"$regex": person_search, "$options": "i"}},
+            ]
+        persons = list(self.persons_collection.find(search_filter))
         for person in persons:
             process_person(person)
         return [Person(**person) for person in persons]

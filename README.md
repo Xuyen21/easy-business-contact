@@ -6,7 +6,7 @@ Built with **React Vite** for the frontend, **Python FastAPI** for the backend, 
 
 ## Description
 
-The app is the first prototype that supports all basic CRUD operations (Create, Read, Update, Delete) for contacts. Users can store contacts details and detailed notes from meetings and interactions. For example, users can record when a contact was made, what was discussed, and any agreed-upon next steps.
+The app is the first prototype that supports all search and CRUD operations (Create, Read, Update, Delete) for contacts. Users can store contacts details and detailed notes from meetings and interactions. For example, users can record when a contact was made, what was discussed, and any agreed-upon next steps.
 
 The primary use case for this application is to assist self-employed consultants or freelancers in managing their business contacts and networking conversations.
 
@@ -110,31 +110,9 @@ Currently, the application allows users to:
 
 ## REST API Endpoints Documentation
 
-This document provides a brief overview of the available API endpoints. For complete details on each endpoint, including request parameters, request body schemas, and response body examples, please visit the interactive API documentation at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) \*(Uvicorn server must be up and running). With the database connected and backend endpoints established, FastAPI automatically generated this API documentation, offering a user-friendly interface for exploring and testing its functionalities.
+A complete documentation of each endpoint, including request parameters, request body schemas, and response body examples, is provided in the OpenAPI documentation at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) \*(Uvicorn server must be up and running). 
 
-### Persons
-
-- **`GET /persons/`**: Retrieves a list of all persons.
-- **`POST /persons/`**: Creates a new person.
-- **`GET /persons/{person_id}`**: Retrieves a specific person by their ID.
-- **`PATCH /persons/{person_id}`**: Updates partly an existing person's information like name, email,...
-- **`DELETE /persons/{person_id}`**: Deletes a specific person by their ID.
-
-### Notes
-
-- **`POST /notes/`**: Creates a new note for a specific person.
-- **`GET /notes/detail/{note_id}`**: Retrieves a specific note by its ID.
-- **`GET /notes/{person_id}`**: Retrieves all notes associated with a specific person ID.
-- **`PUT /notes/{note_id}`**: Updates an existing note.
-- **`DELETE /notes/{note_id}`**: Deletes a specific note by its ID.
-
-### Tasks
-
-- **`POST /tasks/`**: Creates a new task for a specific person.
-- **`GET /tasks/detail/{task_id}`**: Retrieves a specific task by its ID.
-- **`GET /tasks/{person_id}`**: Retrieves all tasks associated with a specific person ID.
-- **`PUT /tasks/{task_id}`**: Updates a specific task by its ID.
-- **`DELETE /tasks/{task_id}`**: Deletes a specific task by its ID.
+With the database connected and backend endpoints established and the FastAPI configured, the OpenAPI will be automatically generated, offering a user-friendly interface for exploring and testing its functionalities.
 
 **Frontend Implementation Status for Tasks:**
 

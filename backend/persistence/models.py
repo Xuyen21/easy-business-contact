@@ -60,5 +60,3 @@ class CreatePerson(BaseModel):
 
 class Person(CreatePerson):
     id: str
-    notes: List[str] = []
-    tasks: List[str] = []

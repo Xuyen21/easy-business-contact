@@ -15,11 +15,11 @@ class TaskRouter:
         self.router = APIRouter()
         self.task_service = service
         # Define all crud routes
-        self.router.post("/tasks/", response_model=Task)(self.create_task)
-        self.router.get("/tasks/detail/{task_id}", response_model=Task)(self.read_task)
-        self.router.get("/tasks/{person_id}", response_model=List[Task])(self.read_tasks)
-        self.router.put("/tasks/{task_id}", response_model=Task)(self.update_task)
-        self.router.delete("/tasks/{task_id}", status_code=204)(self.delete_task)
+        self.router.post("/tasks/", response_model=Task, tags=["tasks"], summary="Creates a new task for a specific person.")(self.create_task)
+        self.router.get("/tasks/detail/{task_id}", response_model=Task, tags=["tasks"], summary="Retrieves a specific task by its ID.")(self.read_task)
+        self.router.get("/tasks/{person_id}", response_model=List[Task], tags=["tasks"], summary="Retrieves all tasks associated with a specific person ID.")(self.read_tasks)
+        self.router.patch("/tasks/{task_id}", response_model=Task, tags=["tasks"], summary="Updates a specific task by its ID.")(self.update_task)
+        self.router.delete("/tasks/{task_id}", status_code=204, tags=["tasks"], summary="Deletes a specific task by its ID.")(self.delete_task)
 
     async def create_task(self, task: CreateTask):
         return await service_call_handler(

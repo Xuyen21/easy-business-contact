@@ -15,11 +15,11 @@ class NoteRouter:
         self.router = APIRouter()
         self.note_service = service
         # Define all crud routes
-        self.router.post("/notes/", response_model=Note)(self.create_note)
-        self.router.get("/notes/detail/{note_id}", response_model=Note)(self.read_note)
-        self.router.get("/notes/{person_id}", response_model=List[Note])(self.read_notes)
-        self.router.put("/notes/{note_id}", response_model=Note)(self.update_note)
-        self.router.delete("/notes/{note_id}", status_code=204)(self.delete_note)
+        self.router.post("/notes/", response_model=Note, tags=["notes"], summary="Creates a new note for a specific person.")(self.create_note)
+        self.router.get("/notes/detail/{note_id}", response_model=Note, tags=["notes"], summary="Retrieves a specific note by its ID.")(self.read_note)
+        self.router.get("/notes/{person_id}", response_model=List[Note], tags=["notes"], summary="Retrieves all notes associated with a specific person ID.")(self.read_notes)
+        self.router.patch("/notes/{note_id}", response_model=Note, tags=["notes"], summary="Updates an existing note.")(self.update_note)
+        self.router.delete("/notes/{note_id}", status_code=204, tags=["notes"], summary="Deletes a specific note by its ID.")(self.delete_note)
 
     async def create_note(self, note: CreateNote):
         return await service_call_handler(
