@@ -1,6 +1,8 @@
 # easy-business-contact
 
-A simple way to keep your business contacts under control
+A simple way to keep your business contacts under control.
+
+Built with **React Vite** for the frontend, **Python FastAPI** for the backend, and **MongoDB** for the database.
 
 ## Description
 
@@ -17,7 +19,7 @@ Currently, the application allows users to:
 - Search for contacts by name.
 - Update contact information.
 - Delete contacts.
-- Add Notes and read created Notes
+- Add Notes, read created Notes, delete and edit.
 
 ## Steps to Run This Application
 
@@ -29,7 +31,7 @@ Currently, the application allows users to:
 
 2.  **Set up the Frontend:**
 
-    To install the frontend, please use Node with a recent version. The author uses version 22.9.0.
+    To install the frontend, please use Node with a recent version. The author uses version 22.14.0.
 
     - Navigate to the frontend directory:
       ```bash
@@ -47,11 +49,13 @@ Currently, the application allows users to:
 
 3.  **Configure Environment Variables:**
 
-    - Create a copy of the `.env.template` file named `.env`:
+    - Create a copy of the `.env.template` file with name `.env`. You can use this command in the console:
+
       ```bash
       cp .env.template .env
       ```
-    - Open the `.env` file and replace the placeholder values with your actual credentials (e.g., database connection details, API keys).
+
+    - Open the `.env` file and replace the placeholder values with your own credentials.
 
 4.  **Start the Database:**
 

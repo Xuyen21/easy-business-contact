@@ -128,16 +128,6 @@ export default function DetailsContent({ contact }) {
             {contact.last_name.charAt(0).toUpperCase()}
           </div>
         )}
-        <div className="absolute bottom-0 right-35 h-16 w-16">
-          <Tooltip title="Edit Image" arrow>
-            <Button
-              onClick={() => handleEditClick("image_blob")}
-              style={{ minWidth: "auto" }}
-            >
-              <EditIcon fontSize="small" />
-            </Button>
-          </Tooltip>
-        </div>
       </div>
       <div className="col-span-2 flex-col">
         <p>
